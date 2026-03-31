@@ -1,3 +1,38 @@
+# Visor de Outages
+
+## Quick Setup
+
+1. Clona el repositorio y entra en la carpeta del proyecto:
+	```bash
+	git clone <repo-url>
+	cd visor
+	```
+
+2. Instala las dependencias:
+	```bash
+	npm install
+	```
+
+3. Crea un archivo `.env` en la raíz del proyecto con la siguiente variable de entorno (ajusta la URL de la API si es necesario):
+	```env
+	VITE_API_URL=<URL_DE_TU_API>
+	```
+
+4. Inicia la aplicación en modo desarrollo:
+	```bash
+	npm run dev
+	```
+
+5. Accede a la aplicación localmente en [http://localhost:5173](http://localhost:5173) (o el puerto que indique la terminal).
+
+---
+
+## Demo en la nube
+
+Puedes ver la aplicación desplegada en:
+https://visor-qbv25xxbr-antonios-projects-40aa555e.vercel.app/
+
+---
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
