@@ -13,9 +13,9 @@
 	npm install
 	```
 
-3. Crea un archivo `.env` en la raíz del proyecto con la siguiente variable de entorno (ajusta la URL de la API si es necesario):
+3. Crea un archivo `.env` en la raíz del proyecto con la siguiente variable de entorno:
 	```env
-	VITE_API_URL=<URL_DE_TU_API>
+	VITE_API_URL=endpoint
 	```
 
 4. Inicia la aplicación en modo desarrollo:
@@ -30,7 +30,7 @@
 ## Demo en la nube
 
 Puedes ver la aplicación desplegada en:
-https://visor-qbv25xxbr-antonios-projects-40aa555e.vercel.app/
+https://visor-alpha.vercel.app/
 
 ---
 # React + Vite
