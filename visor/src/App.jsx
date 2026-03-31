@@ -1,121 +1,78 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import FilterBar from './components/FilterBar'
+import OutageTable from './components/OutageTable'
+import RefreshButton from './components/RefreshButton'
+import AnalyticsPanel from './components/AnalyticsPanel'
+import { useOutages } from './hooks/useOutages'
+import './index.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [tab, setTab] = useState('data') // 'data' | 'analytics'
+  const {
+    rows, total, loading, error,
+    filters, page, totalPages, pageSize,
+    applyFilter, resetFilters,
+    reload, nextPage, prevPage,
+  } = useOutages()
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      {/* Header */}
+      <header className="header">
+        <div className="header-inner">
+          <div className="header-brand">
+            <span className="brand-icon">⚛</span>
+            <div>
+              <h1 className="brand-title">Nuclear Outages</h1>
+              <p className="brand-sub">U.S. Nuclear Generation — EIA Open Data</p>
+            </div>
+          </div>
+          <div className="header-actions">
+            <RefreshButton onComplete={reload} />
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
+      </header>
+
+      {/* Tab nav */}
+      <nav className="tab-nav">
         <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          className={`tab-btn ${tab === 'data' ? 'tab-btn--active' : ''}`}
+          onClick={() => setTab('data')}
         >
-          Count is {count}
+          Data Explorer
         </button>
-      </section>
+        <button
+          className={`tab-btn ${tab === 'analytics' ? 'tab-btn--active' : ''}`}
+          onClick={() => setTab('analytics')}
+        >
+          Analytics
+        </button>
+      </nav>
 
-      <div className="ticks"></div>
+      <main className="main">
+        {tab === 'data' && (
+          <>
+            <FilterBar
+              filters={filters}
+              onFilter={applyFilter}
+              onReset={resetFilters}
+            />
+            <OutageTable
+              rows={rows}
+              loading={loading}
+              error={error}
+              total={total}
+              page={page}
+              totalPages={totalPages}
+              pageSize={pageSize}
+              onNext={nextPage}
+              onPrev={prevPage}
+            />
+          </>
+        )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {tab === 'analytics' && <AnalyticsPanel />}
+      </main>
+    </div>
   )
 }
-
-export default App
