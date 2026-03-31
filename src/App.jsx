@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import FilterBar from './components/FilterBar'
+
+import FilterBar from './components/FilterbarComponent'
 import OutageTable from './components/OutageTable'
 import RefreshButton from './components/RefreshButton'
-import AnalyticsPanel from './components/AnalyticsPanel'
+import AnalyticsPanel from './components/AnalyticalPanel'
 import { useOutages } from './hooks/useOutages'
 import './index.css'
 

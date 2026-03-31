@@ -28,7 +28,7 @@ function fmt(val, key) {
   return val
 }
 
-export default function OutageTable({ rows, loading, error, total, page, totalPages, onNext, onPrev, pageSize }) {
+export default function OutageTable({ rows= [], loading, error, total, page, totalPages, onNext, onPrev, pageSize }) {
   const [sortKey, setSortKey] = useState('report_date')
   const [sortDir, setSortDir] = useState('desc')
 
